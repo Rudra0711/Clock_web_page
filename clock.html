@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Clock</title>
+    <style type="text/css">
+
+
+    </style>
+  </head>
+
+  <body>
+
+    <link rel="stylesheet" href="jquery-ui.min.css">
+    
+
+    <canvas id="main" width="600" height="600">  </canvas>
+    <script >
+
+      function setTime()
+        {
+
+          var canvas=document.getElementById('main');
+          var context=canvas.getContext("2d");
+
+          var radius=canvas.width/2;
+
+          context.fillStyle="black";
+
+          context.beginPath();
+          context.arc(radius,radius,radius,0,2*Math.PI);
+          context.fill();
+          context.font=radius/10+"px arial";
+          context.fillStyle="white";
+          context.textAlign="center";
+          context.textBaseLine="middle";
+
+          for (var i = 1; i <= 12; i++) {
+            context.fillText(i,radius+(radius*0.9*Math.sin(i*2*Math.PI/12))
+            ,radius-(radius*0.9*Math.cos(i*2*Math.PI/12)));
+          }
+
+          context.beginPath();
+          context.arc(radius,radius,10,0,2*Math.PI);
+          context.fill();
+          context.fillStyle="white";
+
+            var date=new Date();
+            var hrs=date.getHours();
+            var min=date.getMinutes();
+            var sec=date.getSeconds();
+
+            context.strokeStyle="white";
+            context.moveTo(radius,radius);
+             context.lineTo(radius+(radius*0.5*Math.sin(hrs*2*Math.PI/12))
+             ,radius-(radius*0.5*Math.cos(hrs*2*Math.PI/12)));
+             context.lineWidth=5.5;
+             context.stroke();
+
+            context.moveTo(radius,radius);
+              context.lineTo(radius+(radius*0.8*Math.sin(min*2*Math.PI/60))
+              ,radius-(radius*0.8*Math.cos(min*2*Math.PI/60)));
+              context.lineWidth=3.5;
+              context.stroke();
+
+              context.moveTo(radius,radius);
+              context.lineTo(radius+(radius*0.85*Math.sin(sec*2*Math.PI/60))
+              ,radius-(radius*0.85*Math.cos(sec*2*Math.PI/60)));
+              context.lineWidth=1;
+              context.stroke();
+        }
+        setInterval(setTime,1000);
+    </script>
+    <p style="color:white"></p>
+
+  </body>
+</html>
